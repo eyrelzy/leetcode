@@ -22,10 +22,20 @@ public class Util {
 			}
 		}
 	}
+	public static void logMatrix(int[][] arr) {
+		for (int i = 0; i < arr.length; i++) {
+			System.out.print("[");
+			for (int j = 0; j < arr[0].length; j++) {
+				System.out.print(arr[i][j]+",");
+			}
+			System.out.print("]");
+			System.out.println();
+		}
+	}
 
-	public static void logIntegerList(List<Integer> arr) {
-		for (int i = 0; i < arr.size(); i++) {
-			System.out.println(arr.get(i));
+	public static void logIntegerList(List<List<Integer>> ret) {
+		for (int i = 0; i < ret.size(); i++) {
+			System.out.println(ret.get(i));
 		}
 	}
 	public static void logStringList(List<String> arr) {
