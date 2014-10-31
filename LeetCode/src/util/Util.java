@@ -43,4 +43,10 @@ public class Util {
 			System.out.println(arr.get(i));
 		}
 	}
+	public static void logLinkedList(ListNode head){
+		while(head!=null){
+			System.out.print(head.val+"\t");
+			head=head.next;
+		}
+	}
 }
