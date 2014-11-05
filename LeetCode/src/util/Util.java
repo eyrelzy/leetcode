@@ -1,6 +1,8 @@
 package util;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class Util {
 	public static void log(String s) {
@@ -47,6 +49,18 @@ public class Util {
 		while(head!=null){
 			System.out.print(head.val+"\t");
 			head=head.next;
+		}
+	}
+	public static void logLevelTree(TreeNode root){
+		Queue<TreeNode> q=new LinkedList<TreeNode>();
+		q.add(root);
+		while(!q.isEmpty()){
+			TreeNode n=q.poll();
+			System.out.print(n.val+"\t");
+			if(n.left!=null)
+				q.add(n.left);
+			if(n.right!=null)
+				q.add(n.right);
 		}
 	}
 }

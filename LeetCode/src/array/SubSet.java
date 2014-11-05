@@ -1,5 +1,6 @@
 package array;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -42,4 +43,48 @@ public static void print(List<Integer> l){
 		}
 		return ret;
 	}
+	
+	//dfs method:
+	/**
+	比如输入集合为［1，2，3］应当是这么运行，
+	[]
+	[1]
+	[1,2]
+	[1,2,3] //最底层子循环到头返回删去3，上一层的子循环也到头删去2
+	          //而此时，这一层循环刚到2，删去后还可以添加一个3
+	[1,3] //删除3，删除1
+	[2]
+	[2,3] //删除3，删除2
+	[3]
+	**/
+	public List<List<Integer>> subsets1(int[] S) {  
+	       List<List<Integer>> res = new ArrayList<List<Integer>>();  
+	       List<Integer> tmp = new ArrayList<Integer>();  
+	       Arrays.sort(S);  
+	       res.add(tmp);
+	       dfs(res,tmp,S,0);  
+	       return res;  
+	    }  
+	      
+    public void dfs(List<List<Integer>> res, List<Integer> tmp, int[] S, int pos){  
+//        for(int i=pos; i<=S.length-1;i++){  
+//            tmp.add(S[i]);  
+//            res.add(new ArrayList<Integer>(tmp));  
+//            dfs(res,tmp,S,i+1);  
+//            tmp.remove(tmp.size()-1);  
+//        }  
+        for(int i=pos; i<=S.length-1;i++){  
+        	tmp.add(S[i]);  
+        	res.add(new ArrayList<Integer>(tmp));  
+        	dfs(res,tmp,S,i+1);  
+        	tmp.remove(tmp.size()-1);
+        	//去掉该词的时候，看看剩下的当前位置和下一位是不是一样的
+        	//[1,2,2,2,2,2]
+        	//[1,2]
+        	//[1,3]
+        	while(i<S.length-1 && S[i]==S[i+1]) 
+        		i++;
+        }  
+    }
+	 
 }
