@@ -19,6 +19,7 @@ public class DeleteKthNodeinCircleLinkedList {
 	/**
 	 * f[1] = 0 f[2] = (0+3)%2 = 1 f[3] = (1+3)%3 = 1 f[4] = (1+3)%4 = 0 f[5] =
 	 * (0+3)%5 = 3.
+	 * f[i]=(f[i-1]+k)%i
 	 * */
 	// Solution1: math one
 	// O(n)
