@@ -13,23 +13,19 @@ public class WordBreak {
 		dict.add("code");
 		System.out.println(wordBreak(test, dict));
 	}
-	public static boolean wordBreak(String s, Set<String> dict){
-		boolean[] dp=new boolean[s.length()+1];
-		dp[0]=true;
-		for(int i=0;i<s.length();i++){
-			for(int j=0;j<=i;j++){
-				boolean b=dict.contains(s.substring(j,i+1));
-				System.out.println(b);
-				dp[i+1]=(dp[j]&&dict.contains(s.substring(j,i+1)));
-				//tricky here, we have to store the true value to the i+1 position
-				//not i position
-				if(dp[i+1]){
-					System.out.println(i+"|"+s.substring(j,i+1));
-					break;
-				}
-			}
-		}
-		return dp[s.length()];
+	public static boolean wordBreak(String s, Set<String> wordDict){
+	  int n = s.length();
+      boolean[] dp = new boolean[n+1];
+      dp[0] = true;
+      for(int j=1;j<=n;j++){
+          for(int i=0;i<j;i++){
+              if(dp[i] && wordDict.contains(s.substring(i,j))){
+                  dp[j] = true;
+                  break;// this is critical
+              }
+          }
+      }
+      return dp[n];
 	}
 
 }

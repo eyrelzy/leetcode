@@ -5,6 +5,13 @@ import java.util.List;
 import java.util.Queue;
 
 public class Util {
+	public static TreeNode init(){
+		TreeNode root=new TreeNode(1);
+		root.left=new TreeNode(2);
+		root.left.right=new TreeNode(5);
+		root.right=new TreeNode(3);
+		return root;
+	}
 	public static void log(String s) {
 		System.out.println(s);
 	}
@@ -20,8 +27,9 @@ public class Util {
 	public static void logDoubleIntegerList(List<List<Integer>> arr) {
 		for (int i = 0; i < arr.size(); i++) {
 			for (int j = 0; j < arr.get(i).size(); j++) {
-				System.out.println(arr.get(i).get(j));
+				System.out.print(arr.get(i).get(j)+"\t");
 			}
+			System.out.println();
 		}
 	}
 	public static void logMatrix(int[][] arr) {
@@ -34,6 +42,16 @@ public class Util {
 			System.out.println();
 		}
 	}
+	public static void logMatrix(boolean[][] arr) {
+      for (int i = 0; i < arr.length; i++) {
+          System.out.print("[");
+          for (int j = 0; j < arr[0].length; j++) {
+              System.out.print(arr[i][j]+",");
+          }
+          System.out.print("]");
+          System.out.println();
+      }
+  }
 
 	public static void logIntegerList(List<List<Integer>> ret) {
 		for (int i = 0; i < ret.size(); i++) {

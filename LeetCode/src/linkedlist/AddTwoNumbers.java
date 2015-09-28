@@ -6,7 +6,10 @@ public class AddTwoNumbers {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		ListNode l1 = new ListNode(5);
+		ListNode l2 = new ListNode(5);
+		ListNode head = addTwoNumbers2(l1, l2);
+		System.out.print(head.val);
 	}
 
 	/**
@@ -42,5 +45,33 @@ public class AddTwoNumbers {
 			result.next = new ListNode(1);
 		return head.next;
 	}
-
+    public  static ListNode addTwoNumbers2(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode(-1);
+        dummy.next = l1;
+        int carry = 0;
+        while(l1!=null && l2!=null){
+            int sum = l1.val + l2.val + carry;
+            l1.val = sum%10;
+            carry = sum/10;
+            l1 = l1.next;
+            l2 = l2.next;
+        }
+        while(l1!=null){
+            int sum = l1.val + carry;
+            l1.val = sum%10;
+            carry = sum/10;
+            l1 = l1.next;
+        }
+        while(l2!=null){
+            int sum = l2.val + carry;
+            l1 = new ListNode(sum%10);
+            carry = sum/10;
+            l1 = l1.next;
+            l2 = l2.next;
+        }
+        if(carry!=0){
+            l1 = new ListNode(1);
+        }
+        return dummy.next;
+    }
 }

@@ -2,39 +2,59 @@ package bs;
 /**
  * 二分查找的问题是基于排好序的数组
  * */
-import util.Util;
 
 public class FindMinimumInRotatedSoredArray {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		int[] test={1,2};
-		Util.log(findMin(test));
-	}
 	//binary search method O(logn) solve duplicates
-	public static int findMin(int[] num) {
-        if(num==null||num.length==0)
-            return -1;
-        if(num.length==1)
-            return num[0];
-        int low=0,high=num.length-1;
-        int mid=0,min=num[0];
-        while(low<=high){
-        	mid=(low+high)>>1;
-        	System.out.println("mid"+num[mid]);
-        	if(num[mid]>num[high]){
-        		low=mid+1;
-        	}
-        	else if(num[mid]<num[high]){
-        		high=mid-1;
-        	}
-        	else{
-        		return Math.min(min,num[mid]);
-        	}
-        	min=Math.min(min,num[mid]);
-        }
-        return min;
-    }
-	//FOLLOW-UP what if a lot of rotations?
+	public int findMin(int[] nums) {
+      int left = 0, right = nums.length-1;
+      if(nums.length == 1)
+          return nums[0];
+      while(left<right){
+          int mid = left + (right - left)/2;
+          // #1 
+          if(mid-1>=0 &&nums[mid]<nums[mid-1])
+              return nums[mid];
+          // only if it's the peak, this could happen, and the minimal must be in your right
+          if(nums[mid] >= nums[left] && nums[mid] > nums[right]){
+              left = mid + 1;
+          }else{
+              right = mid - 1;
+          }
+      }
+      return nums[left];
+  }
+	//FOLLOW-UP what if we have duplicates
+	public int findMin2(int[] nums) {
+      int left = 0, right = nums.length-1;
+      if(nums.length == 1)
+          return nums[0];
+      while(left<right){
+          int  mid = left+(right-left)/2;
+          if(mid-1>=0 && nums[mid]<nums[mid-1]){
+              return nums[mid];
+          }
+          if(nums[mid]>=nums[left] && nums[mid]>nums[right]){
+              left = mid+1;
+          }else if(nums[mid] == nums[right]){
+              right--; // the worst case might be O(n)
+          }else{
+              right = mid-1;
+          }
+      }
+      return nums[left];
+  }
+	// O(n) solution
+	public int findMin_1(int[] nums) {
+      int curr = nums[0];
+      for(int i=1;i<nums.length;i++){
+          if(nums[i]>curr){
+              curr = nums[i];
+          }else{
+              return nums[i];
+          }
+      }
+      return nums[0];
+  }
 
 }

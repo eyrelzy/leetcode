@@ -8,9 +8,10 @@ public class SurroundRegion {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//"XOXOXO","OXOXOX","XOXOXO","OXOXOX"
-		char[][] board={{'X','O','X','O','X','O'},{'O','X','O','X','O','X'},{'X','O','X','O','X','O'},{'O','X','O','X','O','X'}};
+//		char[][] board={{'X','O','X','O','X','O'},{'O','X','O','X','O','X'},{'X','O','X','O','X','O'},{'O','X','O','X','O','X'}};
+		char[][] board={{'O','O'},{'O','O'}};
 		SurroundRegion sr=new SurroundRegion();
-		sr.solve(board);
+		sr.solve2(board);
 		System.out.println();
 	}
 
@@ -80,6 +81,52 @@ public class SurroundRegion {
 				return;
 			q.add(i * m + j);
 			board[i][j] = 'V';
+		}
+		
+		public void solve2(char[][] board) {
+			// special cases 
+			if (board == null || board.length == 0 || board.length == 1 || board[0].length == 1)
+				return;
+			//n*m matrix
+			int n = board.length;
+			int m = board[0].length;
+			for(int row = 0; row<n;row++){
+			    for(int col = 0; col<m; col++){
+			        if(col==0||col==m-1||row==0||row==n-1){
+			            Queue<Integer> q = new LinkedList<Integer>();
+			            if(board[row][col] == 'O'){
+			                q.add(row*m+col);
+			                while(!q.isEmpty()){
+			                    int number = q.poll();
+			                    int x = number/m;
+			                    int y = number%m;
+			                    board[x][y] = '1';
+			                    if(x-1>=0 && board[x-1][y] == 'O'){
+			                        q.add(number-m);
+			                    }
+			                    if(x+1<n && board[x+1][y] == 'O'){
+			                        q.add(number+m);
+			                    }
+			                    if(y-1>=0 && board[x][y-1] == 'O'){
+			                        q.add(number - 1);
+			                    }
+			                    if(y+1<m && board[x][y+1] == 'O'){
+			                        q.add(number + 1);
+			                    }
+			                }
+			            }
+			        }
+			    }
+			}
+			for(int row = 0; row<n;row++){
+			    for(int col = 0; col<m; col++){
+			        if(board[row][col] == 'O'){
+			            board[row][col] = 'X';
+			        }else if(board[row][col] == '1'){
+			            board[row][col] = 'O';
+			        }
+			    }
+			}
 		}
 
 }

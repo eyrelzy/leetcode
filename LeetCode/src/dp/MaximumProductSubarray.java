@@ -9,8 +9,10 @@ public class MaximumProductSubarray {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] A = { -5, 0, 4, 1, -2, 2, -6 };
-		System.out.println(maxProduct(A));
+		int[] A = { -3, -2, -4, 10 };
+		MaximumProductSubarray mp = new MaximumProductSubarray();
+		System.out.println(mp.maxProduct3(A));
+//		System.out.println(maxProduct(A));
 	}
 //TLE
 //opt(j)=max{opt(j-1), i*(i+1)*...j}
@@ -56,5 +58,35 @@ public class MaximumProductSubarray {
 		}
 		return max_product;
 	}
+
+  class A {
+    int min = 1;
+    int max = 1;
+    @Override
+    public String toString(){
+      return "max:"+max+","+"min:"+min;
+    }
+    A() {
+      min = 1;
+      max = 1;
+    }
+  }
+
+  public int maxProduct3(int[] nums) {
+    A[] opt = new A[nums.length];
+    for(int i=0;i<nums.length;i++){
+      opt[i] = new A();
+    }
+    int max = nums[0];
+    opt[0].max = nums[0];
+    opt[0].min = nums[0];
+    for (int i = 1; i < nums.length; i++) {
+      opt[i].max = Math.max(Math.max(nums[i], opt[i - 1].max * nums[i]), opt[i - 1].min * nums[i]);
+      opt[i].min = Math.min(Math.min(nums[i], opt[i - 1].max * nums[i]), opt[i - 1].min * nums[i]);
+      max = Math.max(max, opt[i].max);
+    }
+    return max;
+  }
+
 
 }

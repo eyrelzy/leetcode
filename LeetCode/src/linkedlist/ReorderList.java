@@ -11,10 +11,32 @@ public class ReorderList {
 		ListNode head = new ListNode(1);
 		head.next = new ListNode(2);
 		head.next.next = new ListNode(3);
+		head.next.next.next = new ListNode(4);
+		head.next.next.next.next = new ListNode(5);
+		
 
-		r.reorderList(head);
+		r.reorderList3(head);
 		Util.logLinkedList(head);
 	}
+	
+	// TLE O(N^2)
+	public void reorderList3(ListNode head) {
+        if(head==null || head.next ==null || head.next.next ==null)
+            return;
+        ListNode cur = head;
+        while(cur.next!=null){
+        	if(cur.next.next ==null)
+                break;
+            ListNode next = cur.next;
+            while(next.next.next!=null){
+                next = next.next;
+            }
+            next.next.next = cur.next;
+            cur.next = next.next;
+            next.next = null;
+            cur = cur.next.next;
+        }
+    }
 
 	public void reorderList(ListNode head) {
 		if (head == null || head.next == null)

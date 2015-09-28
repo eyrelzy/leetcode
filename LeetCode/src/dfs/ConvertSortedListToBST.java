@@ -7,8 +7,25 @@ public class ConvertSortedListToBST {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		int[] nums = {0};
+		ConvertSortedListToBST cst =  new ConvertSortedListToBST();
+		TreeNode root = cst.sortedArrayToBST(nums);
 	}
+	
+	public TreeNode sortedArrayToBST(int[] nums) {
+        if(nums == null || nums.length == 0)    return null;
+        TreeNode root = null;
+        createBST(root, nums, 0, nums.length-1);
+        return root;
+    }
+    public void createBST(TreeNode root, int[] num, int start, int end){
+		if(start>end)   return;
+		int mid=(start+end)/2;
+		root = new TreeNode(num[mid]);
+		createBST(root.left, num, start,mid-1);
+		createBST(root.right, num, mid+1, end);
+	}
+	
 	public TreeNode sortedListToBST(ListNode head) {
         if(head==null)
             return null;
